@@ -44,7 +44,7 @@ SG90 舵机可以在电商平台购买，也可用其它型号的舵机，用 SG
 
 ### Arduino IDE 配置 ESP8266 环境
 
-我们将使用首先 Arduino 开发`"智能"`空调遥控器，所以首先需要从 [Arduino 官网](https://www.arduino.cc/en/software "Arduino 官网") 下载 Arduino IDE 软件并安装。
+我们将使用首先 Arduino 开发`"智能"`空调遥控器，所以首先需要从 Arduino 官网(`https://www.arduino.cc/en/software`) 下载 Arduino IDE 软件并安装。
 安装完成以后，进入首选项（Preferences），找到附加开发板管理器地址（Additional Board Manager URLs），并在其后添加如下信息：
 
 > http://arduino.esp8266.com/stable/package_esp8266com_index.json
@@ -53,7 +53,7 @@ SG90 舵机可以在电商平台购买，也可用其它型号的舵机，用 SG
 输入 esp8266，选择最新版本并安装。
 
 ::: block-1
-如果安装过程中下载比较慢，可以先下载文末 Arduino esp8266相关依赖包，然后再按上面的步骤进行安装。
+如果安装过程中下载比较慢，可以先下载文末 `Arduino esp8266 相关依赖包`，然后再按上面的步骤进行安装。
 :::
 
 安装好后，依次点击：工具 - 开发板 - ESP8266 Boards - NodeMCU 1.0
@@ -64,12 +64,13 @@ SG90 舵机可以在电商平台购买，也可用其它型号的舵机，用 SG
 
 USB 转串口驱动作用是将电脑上编译好的程序通过 USB 线烧录到 NodeMCU。需要根据购买的 NodeMCU 的 USB 转串口芯片型号安装对应驱动。
 
-例如:
+例如：
 | USB 转串口芯片| 下载地址 | windows 下载包 | macos 下载包 |
 | :------------: | :-- | :-----------: | :--------: |
 | CH340 | https://www.wch.cn/products/CH340.html| CH341SER.EXE | CH34XSER_MAC.ZIP |
 | CP2102 | https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads| CP210x_VCP_Windows.zip | Mac_OSX_VCP_Driver.zip |
 
+\
 安装好驱动软件后，用 USB 线连接 NodeMCU 和电脑，然后依次点击 Arduino 的：工具 - 端口，可以看到新增的端口，选择它。
 
 ![](https://files.mdnice.com/user/34369/f7f246a4-9e7c-4ce9-9b83-40b28d22c059.png)
@@ -78,25 +79,43 @@ USB 转串口驱动作用是将电脑上编译好的程序通过 USB 线烧录�
 自此，软硬件都已准备好，先测试一下，点个灯看看。
 
 ## 点个灯试试看
-1. 依次点击Arduino：文件 - 示例 - 01.Basics - Blink。可打开LED闪烁的示例程序
-![](https://files.mdnice.com/user/34369/d48d8f79-f81d-4dc5-b5d1-c886b650229c.png)
 
-2. 点击菜单栏的`上传`按钮，等待下方的状态栏显示“上传成功”，LED闪烁示例程序便成功上传到NodeMCU。
-![](https://files.mdnice.com/user/34369/b9d36548-ee0e-4c1f-b759-b56d6b650394.png)
+1. 依次点击 Arduino：文件 - 示例 - 01.Basics - Blink。可打开 LED 闪烁的示例程序
+   ![](https://files.mdnice.com/user/34369/d48d8f79-f81d-4dc5-b5d1-c886b650229c.png)
 
+2. 点击菜单栏的`上传`按钮，等待下方的状态栏显示“上传成功”，LED 闪烁示例程序便成功上传到 NodeMCU。
+   ![](https://files.mdnice.com/user/34369/b9d36548-ee0e-4c1f-b759-b56d6b650394.png)
 
-
-此时可看到NodeMCU上的LED以亮1秒灭1秒的频率闪烁。
+此时可看到 NodeMCU 上的 LED 以亮 1 秒灭 1 秒的频率闪烁。
 
 ![](https://files.mdnice.com/user/34369/82818e31-3de9-4809-9fc4-8a3bde94883e.gif)
 
+## 正式发车
 
+### 1. 遥控器程序开发（复制粘贴）
 
-## 最后的组装
+打开如下网址，复制代码到 Arduino
 
-SG90 舵机与 NodeMCU 管脚连接示意如下图：
-![](https://files.mdnice.com/user/34369/a7dcbe50-7bbb-4bef-9772-c1e68bcc679c.png)
-SG90 信号线与 NodeMCU 的 D4 管脚相连，SG90 电源线与 NodeMCU 任意输出 3.3V 管脚相连，SG90 地线与 NodeMCU 任意 GND 管脚相连。
+> https://github.com/LoganAmy/SmartRemoteControl/blob/main/01.LAN-Control/src/LanSwitch/LanSwitch.ino
+
+将程序代码里面的 WiFi 名称和密码，修改成家里的 WiFi 名称和密码。然后按之前点灯示例程序的步骤一样，上传程序到 NodeMCU。
+
+### 2. 遥控器硬件开发（组装积木）
+
+按照前面提到的方案：移动电源给 NodeMCU 进行供电，NodeMCU 通过导线与舵机相连，舵机绑到遥控器上，等待触发开关。
+
+> > 需要注意的是，SG90 舵机信号线(`橙色线`)需要与 NodeMCU 的 D5 管脚相连 (也可修改代码，使用其它管脚) ，而电源线(`红色线`)与 NodeMCU 任意输出 3.3V 管脚相连，地线(`黑色线`)可与 NodeMCU 任意 GND 管脚相连。
+> > ![](https://files.mdnice.com/user/34369/8944aab1-a570-4efc-81fd-c0e918c651d9.png)
+
+自此`智能`空调遥控器制作完成。
+
+## 看看效果
+
+`智能`空调遥控器，连接电源后，指示灯会亮起，成功连接 WIFI 后，指示灯熄灭。
+
+手机连接与`智能`空调遥控器连接的同一个 WIFI，然后浏览器访问`http://youtoo-switch.local`。此时指示灯闪烁一下，同时舵机转动，触发空调遥控器开关，打开空调。
+
+## 附录工具包
 
 > > <span style="color:#ff3502;font-weight: bold;">Arduino esp8266 依赖包</span>
 > >
@@ -119,5 +138,7 @@ SG90 信号线与 NodeMCU 的 D4 管脚相连，SG90 电源线与 NodeMCU 任意
 > >   - windows:%LocalAppData%\Arduino15\staging\packages
 > >   - macos:~/Library/Arduino15/staging/packages
 
+\
+\
 为进一步降低操作门槛，让**你也可以**体验动手的乐趣，文中提到的相关软件、驱动、代码，可扫码关注『**YouToo**』微信公众号后，回复 `智能遥控器01` 即可打包获取。
 ![](https://files.mdnice.com/user/34369/0fbf9c9f-dbb0-4c23-9cbe-e4a5d9724cdc.jpg)
