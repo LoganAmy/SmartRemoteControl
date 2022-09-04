@@ -5,8 +5,8 @@
 #include <Servo.h>
 
 /* 修改为你的WIFI SSID和密码 */
-#define WIFI_SSID "SSID"
-#define WIFI_PASSWD "PASSWD"
+#define WIFI_SSID "iPhone123"
+#define WIFI_PASSWD "19931218"
 
 // mdns名称
 #define MDNS_NAME "youtoo-switch"
@@ -54,7 +54,7 @@ void handleRoot() {
   delay(10);
   digitalWrite(LED_PIN, HIGH);
 
-  myservo.write(125);
+  myservo.write(45);
   delay(500);
   myservo.write(90);
 
