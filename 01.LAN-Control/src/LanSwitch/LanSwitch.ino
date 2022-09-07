@@ -5,8 +5,8 @@
 #include <Servo.h>
 
 /* 修改为你的WIFI SSID和密码 */
-#define WIFI_SSID "wifi_name"
-#define WIFI_PASSWD "wifi_passwd"
+#define WIFI_SSID "SSID"
+#define WIFI_PASSWD "PASSWD"
 
 // mdns名称
 #define MDNS_NAME "youtoo-switch"
