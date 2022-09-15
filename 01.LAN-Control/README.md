@@ -19,7 +19,7 @@
 ![](https://files.mdnice.com/user/34369/3dec419e-cf5b-4cee-8f73-43c15b1676b3.png)
 `手机`通过 WiFi，发送指令给可以联网的`NodeMCU`模块，`NodeMCU`控制`舵机`旋转按下`空调遥控器`的开关，从而启动`空调`。
 
-看起来应该挺不错的~
+这样的话，空调遥控器固定放在一个地方，用手机就可以随时随地控制空调啦。看起来应该挺不错的~
 
 ![](https://wximg.yiban.io/img_proxy?src=https://img.soogif.com/vGNqMO9zyestygIOhLEoQZIYYUfrl3j7.gif)
 
@@ -28,6 +28,7 @@
 - ESP8266(NodeMCU)模块
 - SG90 舵机
 - 移动电源
+- Micro-USB 连接线一根、杜邦线若干
 
 NodeMCU 可以在电商平台购买，价格十几元到二十元不等，可随意挑选，功能都是一样的。需要注意的是，NodeMCU 的 USB 转串口芯片型号，有 CH340、CP2102 等不同型号，在烧录固件的时候需要在电脑上安装对应的驱动，后文会详细说明。
 ![](https://files.mdnice.com/user/34369/9cf6af1c-6e59-4a7d-857a-fdc7dc1b5244.png)
@@ -38,6 +39,8 @@ SG90 舵机可以在电商平台购买，也可用其它型号的舵机，用 SG
 
 \
 移动电源为`"智能"`空调遥控器提供电源，任意一款输出电压为 5V 的充电宝都可。
+
+Micro-USB 连接线用来给 NodeMCU 烧录代码和供电。杜邦线用来连接 NodeMCU 和舵机。
 
 ## 软件开发环境准备
 
@@ -158,20 +161,19 @@ USB 转串口驱动作用是将电脑上编译好的程序通过 USB 线烧录�
 :::
 
 ::: block-1
-<span style="color:#ff3502;font-weight: bold;">通过IP控制遥控器</span>
+<span style="color:#ff3502;font-weight: bold;">通过 IP 控制遥控器</span>
 
-**1. 获取NodeMCU的IP地址**  
-打开Arduino IDE的串口监视器，依次点击：工具 - 串口监视器
+**1. 获取 NodeMCU 的 IP 地址**  
+打开 Arduino IDE 的串口监视器，依次点击：工具 - 串口监视器
 ![](https://files.mdnice.com/user/34369/61ee8e8f-1b9e-46bf-9233-92e00a38ff78.png)
 \
-在串口监视器中，选择`115200 波特率`，之后上方窗口会打印NodeMCU的运行信息（如果一直不显示，可以按NodeMCU上的 RST 按钮或者重新插拔USB线）。NodeMCU连接WiFi后，会在窗口打印IP地址，如下图中的：192.168.1.25
+在串口监视器中，选择`115200 波特率`，之后上方窗口会打印 NodeMCU 的运行信息（如果一直不显示，可以按 NodeMCU 上的 RST 按钮或者重新插拔 USB 线）。NodeMCU 连接 WiFi 后，会在窗口打印 IP 地址，如下图中的：192.168.1.25
 ![](https://files.mdnice.com/user/34369/0aec2634-03cf-4c6e-9537-6cd3d7352d44.png)
 
-**2. 手机浏览器访问IP地址控制遥控器**  
-在手机浏览器中，输入上一步骤获取的IP地址，即可控制遥控器。如输入：http://192.168.1.25
+**2. 手机浏览器访问 IP 地址控制遥控器**  
+在手机浏览器中，输入上一步骤获取的 IP 地址，即可控制遥控器。如输入：http://192.168.1.25
 ![](https://files.mdnice.com/user/34369/a92dcf7f-fe33-4445-9b60-a06f189947bb.jpg)
 :::
-
 
 \
 \
